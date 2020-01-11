@@ -11,7 +11,6 @@ import pandas as pd
 import dask.dataframe as dd
 import time
 
-#path = "C:\\Users\\konstantinos\\Desktop\\Project_Antonis\\mortgages3.csv"
 path = "E:\\project\\mortgages3.csv"
 
 # Convert csv file to Dataframe
@@ -51,7 +50,6 @@ mortgages['Age_Customer']=mortgages['Age_Customer']/np.timedelta64(1,'Y')
 bins = [0, 20, 30, 40, 50, 60, 70, 80, 120]
 group_names = ['0-20', '20-30', '30-39', '40-49', '50-59', '60-69', '70-79', '80-120']
 mortgages['Age_Customer'] = pd.cut(x = mortgages['Age_Customer'], bins = bins, labels = group_names)
-
 
 # Trasform postcode to certain bins
 mortgages['Addr_Tx'] = mortgages['Addr_Tx'].astype(float)
@@ -290,9 +288,6 @@ me_lr = np.mean(y_test_2017 - y_pred_prob_2017)
 # gini
 gini = (2 * roc_auc) - 1
 
-
-
-
 # Calculate Kolmogorov Smirnov test result
 test_target = pd.Series(y_test, name = 'Test_Target')
 test_prob= pd.Series(np.squeeze(y_pred_prob), name = 'Test_Prob')
@@ -328,7 +323,6 @@ df2
 # Calculate KS Statistics using the above values
 df2['ks_stats'] = np.round(((df2['Defaulter_Count'] / df2['Defaulter_Count'].sum()).cumsum() -(df2['Non-Defaulter_Count'] / df2['Non-Defaulter_Count'].sum()).cumsum()), 4) * 100
 df2
-
 
 # Find the KS Statistics value which is the max of KS statistics scored for each decile
 flag = lambda x: '*****' if x == df2['ks_stats'].max() else ''
