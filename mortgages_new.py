@@ -11,7 +11,6 @@ import pandas as pd
 import dask.dataframe as dd
 import time
 
-#path = "C:\\Users\\konstantinos\\Desktop\\Project_Antonis\\mortgages3.csv"
 path = "E:\\project\\mortgages3.csv"
 
 # Convert csv file to Dataframe
@@ -51,7 +50,6 @@ mortgages['Age_Customer']=mortgages['Age_Customer']/np.timedelta64(1,'Y')
 bins = [0, 20, 30, 40, 50, 60, 70, 80, 120]
 group_names = ['0-20', '20-30', '30-39', '40-49', '50-59', '60-69', '70-79', '80-120']
 mortgages['Age_Customer'] = pd.cut(x = mortgages['Age_Customer'], bins = bins, labels = group_names)
-
 
 # Trasform postcode to certain bins
 mortgages['Addr_Tx'] = mortgages['Addr_Tx'].astype(float)
@@ -243,16 +241,6 @@ y_pred = classifier.predict(X_test)
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(y_test, y_pred)
 
-from sklearn.metrics import r2_score
-r2_score(y_test, y_pred)
-
-# Logistic regression with stats model
-import statsmodels.api as sm
-logit_model=sm.Logit(y_train, X_train)
-result=logit_model.fit()
-print(result.summary2())
-# Run model to 2017 accounts
-
 # Splitting data to X_test_2017 and y_test_2017
 start_date = pd.to_datetime('2017-02-01').date()
 end_date = pd.to_datetime('2018-01-01').date()
@@ -285,10 +273,9 @@ y_pred_2017 = classifier.predict(X_test_2017)
 from sklearn.metrics import confusion_matrix
 cm2 = confusion_matrix(y_test_2017, y_pred_2017)
 
-
 # Model Evaluation
 
-# R2 and adjusted R2
+# R2
 from sklearn.metrics import r2_score
 r2 = r2_score(y_test_2017, y_pred_2017)
 
@@ -317,6 +304,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 mae_lr = mean_absolute_error(y_test_2017, y_pred_prob_2017)
 mse_lr = mean_squared_error(y_test_2017, y_pred_prob_2017)
 me_lr = np.mean(y_test_2017 - y_pred_prob_2017)
+
 # gini
 gini = (2 * roc_auc) - 1
 
